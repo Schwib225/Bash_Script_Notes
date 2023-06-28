@@ -1,0 +1,60 @@
+# Shell Scripting Notes - Logic
+
+# IF Statements
+
+---
+#!/bin/bash
+
+mynum=200
+
+if [ $mynum -eq 200 ]                           # Checks if it is 200
+#if [ ! $mynum -eq 200]                          # Checks if it is NOT 200 the '!' checks for the reverse - same as -ne value
+then
+    echo "The condition is true"
+else
+    echo "The variable does not equal 200"
+fi 
+
+---
+
+
+# Different values
+
+man test        # Man page for the brackets [] of IF logic 
+
+eq      # Equals
+gt      # Greater than
+ge      # Greater than/equal
+lt      # Less than
+le      # Less than/equal
+ne      # Not equal 
+
+# Another example - Search for the existance of a file using the -f option
+
+if [ -f ~/myfile ]
+then 
+    echo "The file exists"
+else 
+    echo "The file doesn't exist"
+fi 
+
+--- 
+
+# Example - Checking for a command on the system
+
+#!/bin/bash
+
+command=/usr/bin/htop 
+
+if [ -f $command ] 
+#if command -v $command                                         # This achieves the same thing as the previous statement - checks for the existance of htop/looks like 'which' output
+then
+    echo "$command is available, let's run it..."
+else
+    echo "$command is not available, installing it..."
+    sudo apt update && sudo apt install -y htop                 # the && chains commands together if the first is successful
+fi 
+
+$command                                                        # This will run htop immediately after completing the if/then statement 
+
+---
