@@ -1,0 +1,43 @@
+# Shell Scripting Notes - Variables and Math
+
+
+# Variable setting and references 
+
+testing='1.. 2.. 3..'
+echo $testing           # Reference a variable
+
+files=$(ls)             # This will listall files from the ls command
+
+now=$(date)             # This will get the date/time of the system and list it as the now variable
+echo $now               # This will post it
+
+---
+
+#!/bin/sh
+# Another example with asking for user input 
+
+echo "what is your name?"
+read person                     # This will get user input and create variable 'PERSON'
+echo "Hello, $person"
+
+---
+
+# Finding System Declared Variables
+
+env                             # Will list all current variables, even ones defined in terminal session 
+
+
+# Math expressions
+
+expr 30 + 10                    # This will add the two numbers
+expr 30 - 10                    # Will subtract
+expr 30 / 10                    # Will divide
+expr 100 \* 10                  # Will multiply, need to escape the *
+
+# Math - With variables now
+
+mynum1=100
+expr $mynum1 + 50
+mynum2=88
+expr $mynum1 \* $mynum2
+
