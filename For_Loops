@@ -1,0 +1,23 @@
+# Shell Scripting Notes - For loops 
+
+# Iterating through a list of numbers 
+
+#!/bin/bash 
+
+#for current_number in 1 2 3 4 5
+for current_number in {1..10}               # This is how to create a range 
+do 
+    echo $current_number 
+    sleep 1 
+done 
+
+echo "This is outside fo the for loop"
+
+---
+
+# Zipping multiple log files one by one 
+
+for file in logfiles/*.log 
+do 
+    tar -czvf $file.tar.gz $file            
+done 
