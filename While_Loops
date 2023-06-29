@@ -1,0 +1,29 @@
+# Shell Scripting Notes - While Loops
+
+# Count to 10 
+
+#!/bin/bash
+myvar=1
+while [ $myvar -le 10 ]
+do
+    echo $myvar 
+    myvar=$(($myvar +1 ))
+    sleep 0.5
+done 
+
+
+---
+# This block will run until the file is removed - once it is removed it will break the loop 
+
+#!/bin/bash
+
+while [ -f ~/testfile ]
+do 
+    echo "As of $(date), the test file exists"
+    sleep 5 
+done 
+
+echo "As of $(date), the file no longer exists. Exiting"
+
+---
+
