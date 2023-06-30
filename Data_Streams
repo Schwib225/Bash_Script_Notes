@@ -1,0 +1,68 @@
+# Bash Scripting Notes - Data Streams 
+
+#!/bin/bash 
+
+3 Types of Streams
+
+STDOUT - this is used constantly when running commands that run successfully
+STDERR - this prints error messages, think non-zero exit codes ($?) like permission denied or file not found 
+STDIN - The user is putting input into the system 
+---
+
+# Examples
+
+find /etc -type f                   # This will give us all output, errors and all
+
+find /etc -type f 2> /dev/null      # This will give us only STDOUT - no error messages at all. We have redirected the error text to /dev/null
+
+find /etc -type f > /dev/null       # This will ONLY give errors, sending STDOUT to /dev/null 
+find /etc -type f 1> /dev/null      # This is the same as the previous line, 1 is the default  
+
+find /etc -type f &> file.txt       # How to direct both to the same place - both STDOUT and STDERR will go to file.txt 
+
+find /etc -type f 1>find_results.txt 2>find_errors.txt      # This will redirect both outputs to different files (you can skip the 1 if you want)
+
+---
+
+# Updating our universal update script with the output redirection above
+
+#!/bin/bash
+
+release_file=/etc/os-release 
+logfile=/var/log/updater.log 
+errorlog=/var/log/updater_errors.log
+
+if grep -q "Arch" $release 
+then 
+    # The host is based on Arch, run the pacman update command
+    sudo pacman -Syu 1>>$logfile 2>>$errorlog                                   # Notice we are appending to, not overwriting the log files
+    if [ $? -ne 0 ]                                                             # Validating the exit code 
+    then
+        echo "An error occurred, please check the $errorlog file."
+    fi 
+fi 
+
+if grep -q "Debian" $release  || grep -q "Ubuntu" $release 
+then 
+    # The host is based on Debian or Ubuntu, run the apt update command
+    sudo apt update 1>>$logfile 2>>$errorlog  
+    if [ $? -ne 0 ]
+    then
+        echo "An error occurred, please check the $errorlog file."
+    fi 
+    sudo apt dist-upgrade -y 1>>$logfile 2>>$errorlog                           # Need to add -y otherwise the script will sit blank forever
+    if [ $? -ne 0 ]
+    then
+        echo "An error occurred, please check the $errorlog file."
+    fi 
+fi 
+
+---
+
+# STDIN example here
+
+#!/bin/bash 
+
+echo "Please enter your name:"
+read myname                                 # Will create input based on what you are entering 
+echo "Your name is: $myname"
