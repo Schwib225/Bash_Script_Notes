@@ -1,0 +1,10 @@
+# Bash Scripting Notes - Where to store scripts
+#!/bin/bash 
+
+/usr/local/bin          # can be run from anywhere depending on the user permissions 
+
+env                     # list all environment variables, notice the 'PATH' variable
+                        # This will  show us what dirs the filesystem will allow us to call scripts from by default 
+                        # obviously following this logic can add a path in the next line below as an example 
+
+export PATH=/usr/local/bin/:$PATH           # This will simply add /usr/local/bin/ to the path variable, since we are calling $PATH
