@@ -1,0 +1,40 @@
+# Bash Scripting Notes - Scheduling Jobs 
+
+at              # Allows scripts to be run at a later date - uses military time 
+atq             # See which jobs are in the queue for the 'at' command 
+atrm            # allows you to cancel the job number (use atq to get the number)
+
+---
+# Test script to schedule so we can see the time it was run 
+
+#!/bin/bash 
+
+logfile=job_results.log
+
+/usr/bin/echo "The script ran at the following time: $(/usr/bin/date)" > $logfile 
+
+---
+
+# Linux way
+
+at 11:15 -f ./test.sh 
+
+at 14:22 -f ./test.sh 
+
+at 18:00 081623 -f ./test.sh 
+
+# Note on MAC it is different
+
+at -f ./test.sh 11:30           # if you dont run it like this, the time will be 'garbled'
+
+---
+
+cron and the crontab command 
+
+crontab -e                                  # edit crontab for current user
+
+sudo crontab -u user -e                     # edit crontab for another user
+
+# Add the following line
+
+30 1 * * 5 /usr/local/bin/script            # this is the file in the next section, run it every 30 minute, every 1 hour, every day of the month and month of the year on friday (M:H:D:M:W - min:hour:day:month:dayofweek)
