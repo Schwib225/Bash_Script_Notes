@@ -1,0 +1,42 @@
+# Bash Scripting Notes - Arguments 
+
+# Generic example of user input 
+
+#!/bin/bash 
+
+echo "You entered the argument: $1, $2, $3 and $4"             # run the script and add anything you want to the name of the file like so
+
+
+./test.sh hello hi heya yo
+You entered argument: hello, hi, heya and yo.
+
+---
+
+ls -lh $1                                                       # pass the argument to ls -lh -- this is useless but a decent example of passing arguments
+
+
+---
+
+#!/bin/bash
+
+lines=$(ls -lh $1 | wc -l)                                      # Gather number of objects in a directory (you pass in the dir as an argument)
+
+echo "You have $(($lines-1)) objects in the $1 directory."      # Tell the user how many objects there are 
+
+---
+
+# Enforcing arguments within the script 
+
+#!/bin/bash
+
+lines=$(ls -lh $1 | wc -l)                                      
+
+if [ $# -ne 1 ]                                                          # Requires 1 argument minimum to be passed, if not pass bad exit code 
+#if [ $# -ne 4 ]                                                         # Requires 4 arguments to be passed 
+then
+    echo "This script requires exactly one dir path passed to it"
+    echo "Please try again."
+    exit 1 
+fi 
+
+echo "You have $(($lines-1)) objects in the $1 directory.
