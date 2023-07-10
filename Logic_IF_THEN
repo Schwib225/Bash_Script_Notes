@@ -58,3 +58,10 @@ fi
 $command                                                        # This will run htop immediately after completing the if/then statement 
 
 ---
+
+# Comparing string equality - https://stackoverflow.com/questions/4277665/how-do-i-compare-two-string-variables-in-an-if-statement-in-bash 
+
+if [[ "$s1" == "$s2" ]]                                         # Don't forget double bracket and double quotes 
+then
+    # something here 
+fi 
